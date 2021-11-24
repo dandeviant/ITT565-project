@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>System Administrator</title>
+		<style>
+
+
+
+			body {
+			  margin: 0;
+			  background-color: black;
+			  color: white;
+			  font-family: Calibri;
+			  font-size: 20px;
+			}
+
+			/* VERTICAL NAVIGATION BAR CSS PROPERTIES*/
+
+
+			ul {
+			  list-style-type: none;
+			  margin: 0;
+			  padding: 0;
+			  width: 200px;
+			  background-color: #333;
+			  position: fixed;
+			  height: 100%;
+			  overflow: auto;
+			} 
+
+			li a {
+			  display: block;
+			  color: #000;
+			  padding: 16px 24px;
+			  text-decoration: none;
+			  transition: 0.5s;
+			  font-family: Consolas;
+			  font-size: 24px;
+			  color: white;
+			}
+
+			li a.active {
+			  background-color: #0D9DC4;
+			  color: white;
+			  transition: 0.5s;
+			}
+
+			li a.active:hover {
+			  background-color: grey;
+			  color: white;
+			  transition: 0.5s;
+			  color: black;
+			}
+
+			li a:hover:not(.active) {
+			  background-color: #0D9DC4;
+			  color: white;
+			}
+
+			/* FORM CSS PROPERTIES*/
+
+			input[type=text], select 
+			{
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+
+			input[type=submit]
+			{
+				width: 30%;
+				background-color: #0D9DC4;
+				color: white;
+				padding: 20px 30px;
+				margin: 30px 0px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: 0.5s;
+				font-size: 20px;
+			}
+
+			input[type=submit]:hover
+			{
+				background-color: grey;
+				color: white;
+				transition: 0.5s;
+			}
+
+			.button
+			{
+				border-radius: 5px;
+				background-color: #f2f2f2;
+				padding: 20px;
+			}
+
+			form{
+				margin-left:250px;
+				padding:1px 16px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+	<ul>
+		<li><a class="active" href="index.html">Home</a></li>
+		<li><a href="#news">News</a></li>
+		<li><a href="#contact">Contact</a></li>
+		<li><a href="#about">About</a></li>
+	</ul>
+
+		<div style="margin-left:250px;padding:1px 16px;/*height:1000px;">
+		  	<h2>Staff Main Page</h2>
+
+
+		</div>
+
+		<div>
+			<form action="#">
+				<label for="fname">First Name</label>
+				<input type="text" id="fname" name="firstname" placeholder="Your name..">
+			    <label for="lname">Last Name</label>
+				    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+				<label for="country">Country</label>
+					<select id="country" name="country">
+						<option value="australia">Australia</option>
+						<option value="canada">Canada</option>
+						<option value="usa">USA</option>
+					</select>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+	</body>
+
+
+	<script type="text/javascript">
+		function close_window()
+		{
+			if (confirm("Close Window?")) {
+		    close();
+		}
+	</script>
+	
+}
+</html>
+
+
