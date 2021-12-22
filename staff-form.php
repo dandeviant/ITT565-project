@@ -4,6 +4,10 @@
 		<title>System Administrator</title>
 		<style>
 
+			a, a:visited, a:hover, a:active 
+			{
+				  color: inherit;
+			}
 			html{
 				scroll-behavior: smooth;
 			}
@@ -57,6 +61,11 @@
 			li a:hover:not(.active) {
 			  background-color: #AC1B03;
 			  color: white;
+			}
+
+			li a.separate {
+				height: 20px;
+				background-color: #AC1B03 ;
 			}
 
 			/* FORM CSS PROPERTIES*/
@@ -122,111 +131,147 @@
 	<body>
 	<ul>
 		<li><a class="active" href="index.html">Home</a></li>
-		<li><a href="#newstaff">New Staffs</a></li>
 		<li><a href="#list">Registered Staffs</a></li>
+		<li><a class="separate"></a></li>
+		<li><a href="#newstaff">New Staffs</a></li>
+		<li><a href="#edit">Edit/Remove Staffs Data</a></li>
+		
 	</ul>
 
-	<div class="content">
-			<div id="newstaff" style="margin-left:0px;padding:1px 16px; min-height:1000px;">
-			  	<h2>Staff Registration Form</h2>
-
-				<form action="#">
-					<label for="fullname">Full Name (as in ID card)</label><Br>
-					<input type="text" id="fname" name="firstname" placeholder="Your name..">
-					<Br>
-				    <label for="age">Age</label><Br>
-					    <select id="age" name="age">
-					    	<option value="">Select age</option>
-							<script type="text/javascript">
-								for(let i=18; i<50;i++){
-									document.write("<option value"+i+">"+i+"</option>");
-								}
-							</script>
-						</select>
-					<Br>
-					<label for="country">Citizenship</label><Br>
-						<select id="country" name="country">
-							<option value="">Select Citizenship</option>
-							<option value="malaysia">Malaysia</option>
-							<option value="australia">Australia</option>
-							<option value="canada">Canada</option>
-							<option value="usa">USA</option>
-						</select>
-					<Br>
-					<input type="submit" value="Submit">
-					<input type="submit" value="Clear" onclick="clear()" style="
-					background-color: grey;
-					">
-				</form>
+		<div class="content">
+				
+			<div class="separate" >
 			</div>
-			<br><br>
-			<br><br>
-			<br><br>
-			<br><br>
-		
-		<div class="separate" >
-		</div>
-			<br><br>
-			<br><br>
-			<br><br>
-			<br><br>
+				
+				<div id="list" style="margin-left:0px;padding:1px 16px; min-height: 1000px">
+				  	<h2>Registered Staff List</h2>
+				  	<table width="100%" border="1" cellpadding="10"><!-- table for database-->
+				  	<tr bgcolor="grey" style="color: black;">
+				  		<td><b>Staff ID</b></td>
+				  		<td><b>Full Name</b></td>
+				  		<td><b>Age</b></td>
+				  		<td><b>Home Address</b></td>
+				  	</tr>
 
-			<div id="list" style="margin-left:0px;padding:1px 16px; min-height: 1000px">
-			  	<h2>Registered Staff List</h2>
+				  	<!-- connect to database in phpmyadmin -->
 
-			  	<table width="100%" border="1" cellpadding="10"><!-- table for database-->
-			  	<tr bgcolor="grey" style="color: black;">
-			  		<td><b>Staff ID</b></td>
-			  		<td><b>Full Name</b></td>
-			  		<td><b>Age</b></td>
-			  		<td><b>Home Address</b></td>
-			  		<td bgcolor="#AC1B03" colspan="2"></td>
-			  	</tr>
+				  	<?php
 
-			  	<?php
+					  	$connection = mysqli_connect('localhost', 'root', ''); //The Blank string is the password
+						mysqli_select_db($connection, 'staffs');
 
-				  	$connection = mysqli_connect('localhost', 'root', ''); //The Blank string is the password
-					mysqli_select_db($connection, 'staffs');
+						if ($connection->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+						}
 
-					if ($connection->connect_error) {
-						die("Connection failed: " . $conn->connect_error);
-					}
+						$query = "SELECT * FROM staff"; //You don't need a ; like you do in SQL
+						$result = mysqli_query($connection, $query);
 
-					$query = "SELECT * FROM staff"; //You don't need a ; like you do in SQL
-					$result = mysqli_query($connection, $query);
+						/* list out all contents of table 'staffs' */
 
-					
-
-					while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-					$delete = "DELETE FROM staffs WHERE Staff_ID = ".$row['Staff_ID'];  
-					echo "<tr>
-							<td>". $row['Staff_ID'] . "</td><td>" . $row['Staff_Name'] . "</td><td>" . 
-							$row['Staff_Age'] . "</td><td>" . $row['Staff_Address'] . "</td><td>" . 
-							"<button type="."button".">Edit</button>". "</td><td>" .
-							"<button type="."button"." onclick="">Delete</button>".
-							"</td></tr>";  
-					}
-
-					echo "</table>"; //Close the table in HTML
+						while($data = mysqli_fetch_array($result)){   //Creates a loop to loop through results
 
 
 					?>
+						<tr>
+						    <td><?php echo $data['Staff_ID']; ?></td>
+						    <td><?php echo $data['Staff_Name']; ?></td>
+						    <td><?php echo $data['Staff_Age']; ?></td>
+						    <td><?php echo $data['Staff_Address']; ?></td>
+						</tr>
+					<?php
+						}
+					?>
 
-				<?php
+						</table>
+
+					<?php
 
 
-					mysqli_close($connection); 	//Make sure to close out the database connection
+						mysqli_close($connection); 	//Make sure to close out the database connection
 
-			  	?>
-		</div>
-		<br><br>
-			<br><br>
-			<br><br>
-			<br><br>
-			<br><br>
-			<br><br>
+				  	?>
+			</div>
+
+			<div id="newstaff" style="margin-left:0px;padding:1px 16px; min-height:1000px;">
+				  	<h2>Staff Registration Form</h2>
+
+					<form action="#" method="POST">
+						<label for="fullname">Full Name (as in ID card)</label><Br>
+						<input type="text" id="fname" name="firstname" placeholder="Your name..">
+						<Br>
+					    <label for="age">Age</label><Br>
+						    <select id="age" name="age">
+						    	<option value="">Select age</option>
+								<script type="text/javascript">
+									for(let i=18; i<50;i++){
+										document.write("<option value"+i+">"+i+"</option>");
+									}
+								</script>
+							</select>
+						<Br>
+						<label for="address">Current Home Address</label><Br>
+						<input type="text" id="address" name="address" placeholder="Home address...">
+						<Br>
+						<input type="submit" value="Submit">
+						<input type="submit" value="Clear" onclick="clear()" style="
+						background-color: grey;
+						">
+					</form>
+				</div>
+
 		
-	</div>
+
+			<div id="edit" style="margin-left:0px;padding:1px 16px; min-height: 1000px">
+			 	<h3>Modify staffs' information details or<br>remove the staffs information completely</h3>
+			  	<table width="70%" border="1" cellpadding="10"><!-- table for database-->
+			  	<tr bgcolor="grey" style="color: black;">
+			  		<td><b>Staff ID</b></td>
+			  		<td><b>Full Name</b></td>
+			  		<td bgcolor="#AC1B03" colspan="2"></td>
+			  	</tr>
+
+				  	<!-- connect to database in phpmyadmin -->
+
+				  	<?php
+
+					  	$connection = mysqli_connect('localhost', 'root', ''); //The Blank string is the password
+						mysqli_select_db($connection, 'staffs');
+
+						if ($connection->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+						}
+
+						$query = "SELECT * FROM staff"; //You don't need a ; like you do in SQL
+						$result = mysqli_query($connection, $query);
+
+						/* list out all contents of table 'staffs' */
+
+						while($data = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+
+
+					?>
+						<tr>
+						    <td><?php echo $data['Staff_ID']; ?></td>
+						    <td><?php echo $data['Staff_Name']; ?></td>
+							<td align="center">
+								<button onclick="edit(<?php echo $data['Staff_ID']; ?>)">Edit</button>
+							</td>
+							<td align="center">
+								<button onclick="remove()">Remove</button>
+							</td>
+						</tr>
+					<?php
+						}
+					?>
+						</table>
+
+					<?php
+						mysqli_close($connection); 	//Make sure to close out the database connection
+				  	?>
+			</div>
+
+		</div>
 	</body>
 
 
@@ -239,6 +284,16 @@
 
 		function clear(){
 			document.getElementById("myForm").reset();
+		}
+
+		function remove(){
+			<?php
+				header('Location:delete.php?order='.urlencode($data['id']));
+			?>
+		}
+
+		function edit(){
+
 		}
 	</script>
 	
