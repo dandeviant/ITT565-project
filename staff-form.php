@@ -127,13 +127,9 @@
 	</ul>
 
 	<div class="content">
-			<div id="newstaff" style="margin-left:0px;padding:1px 16px;/*height:1000px;">
+			<div id="newstaff" style="margin-left:0px;padding:1px 16px; min-height:1000px;">
 			  	<h2>Staff Registration Form</h2>
 
-
-			</div>
-
-			<div>
 				<form action="#">
 					<label for="fullname">Full Name (as in ID card)</label><Br>
 					<input type="text" id="fname" name="firstname" placeholder="Your name..">
@@ -175,15 +171,16 @@
 			<br><br>
 			<br><br>
 
-			<div id="list" style="margin-left:0px;padding:1px 16px;">
+			<div id="list" style="margin-left:0px;padding:1px 16px; min-height: 1000px">
 			  	<h2>Registered Staff List</h2>
 
-			  	<table width="80%" border="1" cellpadding="20"><!-- table for database-->
+			  	<table width="100%" border="1" cellpadding="10"><!-- table for database-->
 			  	<tr bgcolor="grey" style="color: black;">
 			  		<td><b>Staff ID</b></td>
 			  		<td><b>Full Name</b></td>
 			  		<td><b>Age</b></td>
 			  		<td><b>Home Address</b></td>
+			  		<td bgcolor="#AC1B03" colspan="2"></td>
 			  	</tr>
 
 			  	<?php
@@ -201,19 +198,33 @@
 					
 
 					while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+					$delete = "DELETE FROM staffs WHERE Staff_ID = ".$row['Staff_ID'];  
 					echo "<tr>
 							<td>". $row['Staff_ID'] . "</td><td>" . $row['Staff_Name'] . "</td><td>" . 
-							$row['Staff_Age'] . "</td><td>" . $row['Staff_Address'] . "</td>
-						  </tr>";  
-									//$row['index'] the index here is a field name
+							$row['Staff_Age'] . "</td><td>" . $row['Staff_Address'] . "</td><td>" . 
+							"<button type="."button".">Edit</button>". "</td><td>" .
+							"<button type="."button"." onclick="">Delete</button>".
+							"</td></tr>";  
 					}
 
 					echo "</table>"; //Close the table in HTML
+
+
+					?>
+
+				<?php
+
 
 					mysqli_close($connection); 	//Make sure to close out the database connection
 
 			  	?>
 		</div>
+		<br><br>
+			<br><br>
+			<br><br>
+			<br><br>
+			<br><br>
+			<br><br>
 		
 	</div>
 	</body>
