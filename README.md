@@ -1,4 +1,4 @@
-# project-ITT565
+# project-ITT565 (Windows ONLY!!!)
 
 # Repository owner: Muhammad Danial bin Asmawi
 
