@@ -1,153 +1,215 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<title>System Administrator</title>
-	<link rel="stylesheet" href="form.css">
+		<title>System Administrator</title>
+		<style>
+
+			html{
+				scroll-behavior: smooth;
+			}
+
+			body {
+			  margin: 0;
+			  background-color: black;
+			  color: white;
+			  font-family: Calibri;
+			  font-size: 20px;
+			}
+
+			/* VERTICAL NAVIGATION BAR CSS PROPERTIES*/
+
+
+			ul {
+			  list-style-type: none;
+			  margin: 0;
+			  padding: 0;
+			  width: 200px;
+			  background-color: #333;
+			  position: fixed;
+			  height: 100%;
+			  overflow: auto;
+			} 
+
+			li a {
+			  display: block;
+			  color: #000;
+			  padding: 16px 24px;
+			  text-decoration: none;
+			  transition: 0.5s;
+			  font-family: Consolas;
+			  font-size: 24px;
+			  color: white;
+			}
+
+			li a.active {
+			  background-color: #0D9DC4;
+			  color: white;
+			  transition: 0.5s;
+			}
+
+			li a.active:hover {
+			  background-color: grey;
+			  color: white;
+			  transition: 0.5s;
+			  color: black;
+			}
+
+			li a:hover:not(.active) {
+			  background-color: #AC1B03;
+			  color: white;
+			}
+
+			/* FORM CSS PROPERTIES*/
+
+			input[type=text], select 
+			{
+				width: 60%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+
+			input[type=submit]
+			{
+				width: 30%;
+				background-color: #AC1B03;
+				color: white;
+				padding: 20px 30px;
+				margin: 30px 0px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: 0.5s;
+				font-size: 20px;
+			}
+
+			input[type=submit]:hover
+			{
+				background-color: grey;
+				color: white;
+				transition: 0.5s;
+			}
+
+			.button
+			{
+				border-radius: 5px;
+				background-color: #f2f2f2;
+				padding: 20px;
+			}
+
+			form{
+				margin-left:250px;
+				padding:1px 16px;
+			}
+
+		</style>
 	</head>
 
 	<body>
 	<ul>
 		<li><a class="active" href="index.html">Home</a></li>
-		<li><a href="#list">Registered Staffs</a></li>
-		<li><a class="separate"></a></li>
 		<li><a href="#newstaff">New Staffs</a></li>
-		<li><a href="#edit">Edit/Remove Staffs Data</a></li>
-		
+		<li><a href="#list">Registered Staffs</a></li>
 	</ul>
 
-		<div class="content">		
-			<div class="separate" >
-			</div>
-				
-				<div id="list" style="margin-left:0px;padding:1px 16px; min-height: 1000px">
-				  	<h2>Registered Staff List</h2>
-				  	<table width="100%" border="1" cellpadding="10"><!-- table for database-->
-				  	<tr bgcolor="grey" style="color: black;">
-				  		<td><b>Staff ID</b></td>
-				  		<td><b>Full Name</b></td>
-				  		<td><b>Age</b></td>
-				  		<td><b>Home Address</b></td>
-				  	</tr>
+	<section></section>
+		<div id="newstaff" style="margin-left:250px;padding:1px 16px;/*height:1000px;">
+		  	<h2>Staff Registration Form</h2>
 
-				  	<!-- connect to database in phpmyadmin -->
-
-				  	<?php
-
-					  	include "connect.php";
-						$query = "SELECT * FROM staff"; //You don't need a ; like you do in SQL
-						$result = mysqli_query($connection, $query);
-
-						/* list out all contents of table 'staffs' */
-
-						while($data = mysqli_fetch_array($result)){   //Creates a loop to loop through results
-
-
-					?>
-						<tr>
-						    <td><?php echo $data['Staff_ID']; ?></td>
-						    <td><?php echo $data['Staff_Name']; ?></td>
-						    <td><?php echo $data['Staff_Age']; ?></td>
-						    <td><?php echo $data['Staff_Address']; ?></td>
-						</tr>
-					<?php
-						}
-					?>
-
-						</table>
-
-					<?php
-
-
-						mysqli_close($connection); 	//Make sure to close out the database connection
-
-				  	?>
-			</div>
-
-			<div id="newstaff" style="margin-left:0px;padding:1px 16px; min-height:1000px;">
-				  	<h2>Staff Registration Form</h2>
-
-					<form action="addstaff.php" method="POST">
-						<label for="fullname">Full Name (as in ID card)</label><Br>
-						<input type="text" id="name" name="name" placeholder="Your name..">
-						<Br>
-						<!-- 		-->
-					    <label for="age">Age</label><Br>
-						    <select id="age" name="age">
-						    	<option value="">Select age</option>
-								<script type="text/javascript">
-									for(let i=18; i<50;i++){
-										document.write("<option value"+i+">"+i+"</option>");
-									}
-								</script>
-							</select>
-						<Br>
-						<!-- 		-->
-
-						<label for="address">Current Home Address</label><Br>
-						<input type="text" id="address" name="address" placeholder="Home address...">
-						<Br>
-
-						<!-- 			-->
-						<input type="submit" value="Submit">
-						<input type="submit" value="Clear" onclick="clear()" style="
-						background-color: grey;
-						">
-					</form>
-				</div>
-
-		
-
-			<div id="edit" style="margin-left:0px;padding:1px 16px; min-height: 1000px">
-			 	<h3>Modify staffs' information details or<br>remove the staffs' information completely</h3>
-			  	
-			  	<table width="70%" border="1" cellpadding="10">
-			  	<tr bgcolor="grey" style="color: black;">
-			  		<td><b>Staff ID</b></td>
-			  		<td><b>Full Name</b></td>
-			  		<td bgcolor="#AC1B03" colspan="2"></td>
-			  	</tr>
-
-				  	<!-- connect to database in phpmyadmin -->
-
-				  	<?php
-
-					  	include "connect.php";
-
-						$query = "SELECT * FROM staff"; //You don't need a ; like you do in SQL
-						$result = mysqli_query($connection, $query);
-
-						/* list out all contents of table 'staffs' */
-
-						while($data = mysqli_fetch_array($result))
-						{   //Creates a loop to loop through results
-							echo "<tr>";
-							    echo "<td>".$data['Staff_ID']."</td>";
-							    echo "<td>".$data['Staff_Name']."</td>";
-					?>
-								<form action='' method='post'>
-									<?php echo "<td align='center'><a href='editstaff-page.php?id=".$data['Staff_ID']."'>Edit</a>";?>
-									<?php echo "<td align='center'><a href=delete.php?id=".$data['Staff_ID'].">Delete</a>";?>
-								</form>
-
-							</td>
-							</tr>
-					<?php
-						}
-						mysqli_close($connection); 	//Make sure to close out the database connection	
-					?>				
-					</table>
-					<br><br><br><br>
-					<br><br><br><br>
-					<br><br><br><br>
-					<br><br><br><br>
-					<br><br><br><br>
-					<br><br><br><br>
-
-			</div>
 
 		</div>
+
+		<div>
+			<form action="#">
+				<label for="fullname">Full Name (as in ID card)</label><Br>
+				<input type="text" id="fname" name="firstname" placeholder="Your name..">
+				<Br>
+			    <label for="age">Age</label><Br>
+				    <select id="age" name="age">
+				    	<option value="">Select age</option>
+						<script type="text/javascript">
+							for(let i=18; i<50;i++){
+								document.write("<option value"+i+">"+i+"</option>");
+							}
+						</script>
+					</select>
+				<Br>
+				<label for="country">Citizenship</label><Br>
+					<select id="country" name="country">
+						<option value="">Select Citizenship</option>
+						<option value="malaysia">Malaysia</option>
+						<option value="australia">Australia</option>
+						<option value="canada">Canada</option>
+						<option value="usa">USA</option>
+					</select>
+				<Br>
+				<input type="submit" value="Submit">
+				<input type="submit" value="Clear" onclick="clear()" style="
+				background-color: grey;
+				">
+			</form>
+			<?php
+				echo $eh;
+			?>
+		</div>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+		<br><br>
+	<div id="list"></div>
+	<form action="#">
+				<label for="fullname">Full Name (as in ID card)</label><Br>
+				<input type="text" id="fname" name="firstname" placeholder="Your name..">
+				<Br>
+			    <label for="age">Age</label><Br>
+				    <select id="age" name="age">
+				    	<option value="">Select age</option>
+						<script type="text/javascript">
+							for(let i=18; i<50;i++){
+								document.write("<option value"+i+">"+i+"</option>");
+							}
+						</script>
+					</select>
+				<Br>
+				<label for="country">Country of Origin</label><Br>
+					<select id="country" name="country">
+						<option value="">Select Country of Origin</option>
+						<option value="australia">Australia</option>
+						<option value="canada">Canada</option>
+						<option value="usa">USA</option>
+					</select>
+				<Br>
+				<input type="submit" value="Submit">
+				<input type="submit" value="Clear" onclick="clear()" style="
+				background-color: grey;
+				">
+			</form>
 	</body>
 
+
+	<script type="text/javascript">
+		function close_window()
+		{
+			if (confirm("Close Window?")) {
+		    close();
+		}
+
+		function clear(){
+			document.getElementById("myForm").reset();
+		}
+	</script>
+	
+}
 </html>
 
 
