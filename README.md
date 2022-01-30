@@ -1,7 +1,8 @@
 # Project ITT565 (Windows ONLY!!!)
 
-# Repository owner: Muhammad Danial bin Asmawi 2021151647
-
+# Repository owner
+  Muhammad Danial bin Asmawi (2021151647)
+---
 
 | Members | student ID |
 | --- | --- |
